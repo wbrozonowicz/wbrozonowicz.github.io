@@ -4,6 +4,5 @@ layout: posts
 # permalink: /posts/
 show_excerpts: true
 entries_layout: list
-pagination:
-  enabled: true
+paginate: true
 ---
