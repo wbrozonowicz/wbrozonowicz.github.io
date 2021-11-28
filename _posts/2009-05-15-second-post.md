@@ -1,9 +1,9 @@
 ---
-title: "Edge Case: Nested and Mixed Lists"
+title: "Second post"
 categories:
-  - Edge Case
+  - Mania
 tags:
-  - content
+  - Marysia
   - css
   - edge case
   - lists
@@ -26,7 +26,7 @@ Nested and mixed lists are an interesting beast. It's a corner case to make sure
 
 ## Ordered -- Unordered -- Unordered
 
-1. ordered item
+1. Marysia
 2. ordered item 
   * **unordered**
   * **unordered** 
