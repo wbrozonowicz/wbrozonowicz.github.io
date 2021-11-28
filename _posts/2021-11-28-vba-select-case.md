@@ -5,7 +5,6 @@ last_modified_at: 2017-03-09T10:27:01-05:00
 categories:
   - basic statements
 tags: 
-  - code
   - VBA
 ---
 
