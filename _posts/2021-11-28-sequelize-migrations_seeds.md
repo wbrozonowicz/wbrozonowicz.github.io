@@ -14,7 +14,7 @@ tags:
 ## Migrations
 
 Migrations in sequelize are simple way to create new table in database. It works in terminal, but first have to install cli (required only for the first time):
-
+{% include code-header.html %}
 ```js
 npm install --save-dev sequelize-cli
 ```
@@ -22,7 +22,7 @@ npm install --save-dev sequelize-cli
 Now You can create new model (representation of table in database). 
 
 Note: small letters are less problematic to use in column names in SQL databases so I prefer "underscore" naming convention f.e. "company_id" instead of "companyId"
-
+{% include code-header.html %}
 ```js
 npx sequelize-cli model:generate --name user
  --attributes first_name:string,
@@ -31,7 +31,7 @@ npx sequelize-cli model:generate --name user
 The result will be file "users.js" in "models" directory.
 
 Next step is to migrate new model to database:
-
+{% include code-header.html %}
 ```js
 npx sequelize-cli db:migrate
 ```
@@ -41,6 +41,7 @@ This will create table "users" in database.
 Note: Sequelize during table creation will change model name to plural form, so for model "user" table will have name "users".
 
 To undo last migration execute:
+{% include code-header.html %}
 ```js
 npx sequelize-cli db:migrate:undo
 ```
@@ -48,13 +49,14 @@ npx sequelize-cli db:migrate:undo
 ## Seeds
 
 Now You have empty table, so let's insert some data. Files with initial data are called "seeds". 
-
+{% include code-header.html %}
 ```js
 npx sequelize-cli seed:generate --name first-users
 ```
 After this command You will have new seed file in folder  "seeders" with name "XXXXXXXXXXXXXX-first-users.js" where XX... are unique id based on creation time.
 
 Next step is to edit this file:
+{% include code-header.html %}
 ```js
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -85,19 +87,23 @@ It will create two records in database (users Max and Eva).
 Note: seeds executions in Sequelize are not remembered in database, so each time all seeds are proceed (You will add the same records each time), unless You specify one seed to run.
 
 Bellow command run all seeds - best to use for the first time for multiple seeds:
+{% include code-header.html %}
 ```js
 npx sequelize-cli db:seed:all
 ```
 Undo all seeds:
+{% include code-header.html %}
 ```js
 npx sequelize-cli db:seed:undo:all
 ```
 
 If You want to add only one specific seed:
+{% include code-header.html %}
 ```js
 npx sequelize-cli db:seed --seed XXXXXXXXXXXXXX-first-users
 ```
 Undo last seed:
+{% include code-header.html %}
 ```js
 npx sequelize-cli db:seed:undo
 ```

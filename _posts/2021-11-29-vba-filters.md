@@ -30,7 +30,7 @@ Steps to implement in SUB:
 5. turn on back calculation and screen updating
 
 Note: in column 24 we setup filter = current year number
-
+{% include code-header.html %}
 ```vb
 Sub setupFiltersInSheet(sh as Sheet, lastRow As Long, criteriumName As String, weekNum As Integer)
     Application.Calculation = xlManual
@@ -46,7 +46,7 @@ End Sub
 ```
 
 Reset all filters in Excel sheet is a little bit tricky, because when there is no filter set in sheet, command ShowAllData will throw error. To avoid this We will wrap this code with "On Error" block in Sub "resetAllFiltersInSheet":
-
+{% include code-header.html %}
 ```vb
 Sub resetAllFiltersInSheet(sh as Sheet)
 sh.Select

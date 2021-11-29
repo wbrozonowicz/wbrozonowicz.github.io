@@ -17,7 +17,7 @@ tags:
 ## Example
 
 Below simple and easy example for Switch in Java:
-
+{% include code-header.html %}
 ```java
 int day = 4;
 switch (day) {
