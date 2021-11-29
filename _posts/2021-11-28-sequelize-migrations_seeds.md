@@ -3,10 +3,11 @@ title: "Migrations and seeds in Sequelize"
 excerpt: "Simple & easy example of migration and seed in Sequelize ORM"
 last_modified_at: 2017-03-09T10:27:01-05:00
 categories:
-  - ORM
+  - JavaScript
 tags: 
   - Sequelize
-  - JavaScript
+  - ORM
+  - DataBases
 ---
 
 <!-- short intrduction -->

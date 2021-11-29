@@ -3,9 +3,9 @@ title: "JAVA Switch statement"
 excerpt: "Simple & easy example of Switch statement in JAVA"
 last_modified_at: 2017-03-09T10:27:01-05:00
 categories:
-  - basic statements
-tags: 
   - JAVA
+tags: 
+  - basics
 ---
 
 <!-- short intrduction -->
