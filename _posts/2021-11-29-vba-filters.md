@@ -38,7 +38,7 @@ Array(5, "filterValues", Array("New York", "Boston", "Chicago")) _
 )
 ```
 
-Middle array take three parameters:
+Middle array takes three parameters:
 
 - number of column to filter (f.e. 4 or 5)
 - String variable for switching filter method
@@ -63,7 +63,7 @@ Array("New York", "Boston", "Chicago")
 
 Steps to implement in "setupFilters" Sub:
 
-1. get last row and last column for filtering. In this example We will check data in first row and in forst column, if data are specific and there are more records on different row/columns, it should be adjust.
+1. get last row and last column for filtering. In this example We will check data in the first row and in the first column, if data are specific and there are more records on different row/columns then on first, it should be adjust.
 2. reset all filters in sheet (f.e. user could previously setup filter manually on some column, We want to reset this selection)
 3. based on "options" object We will set Autofilter
 
