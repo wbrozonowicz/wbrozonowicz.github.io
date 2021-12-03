@@ -96,7 +96,7 @@ On Error Resume Next
 End Sub
 ```
 
-The last step is to use previously crested Sub in project. We will call it from another Sub "setFilters":
+The last step is to use previously created Sub in project. We will call it from another Sub "setFilters":
 
 {% include code-header.html %}
 ```vb

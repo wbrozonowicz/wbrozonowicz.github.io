@@ -150,6 +150,6 @@ Now let's discuss some parts of the code:
 
 Below results that can be copy and paste to new class module:
 
-![sheet with class definition](/images/class_generator/2.JPG)
+![sheet with result](/images/class_generator/2.JPG)
 
 That's all, good luck with generating new classes in VBA!
