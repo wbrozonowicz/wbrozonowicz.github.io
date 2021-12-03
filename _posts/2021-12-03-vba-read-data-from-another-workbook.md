@@ -52,7 +52,7 @@ End Sub
 ```
 
 What if We want to get only some columns or paste them in target sheet in diferent order?
-Below example how to do this - for example get 3 columns: column 2,4, and 1 ant print them to target sheet in this order:
+Below example how to do this - for example get 3 columns: column 2,4,1 and print them to target sheet in this order:
 
 {% include code-header.html %}
 
