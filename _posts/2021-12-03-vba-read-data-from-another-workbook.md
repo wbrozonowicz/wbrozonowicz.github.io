@@ -1,6 +1,6 @@
 ---
 title: "VBA read data from another WorkBook"
-excerpt: "How to read data into array from another Excel WorkBoo in fast and easy way"
+excerpt: "How to read data into array from another Excel WorkBook in fast and easy way"
 last_modified_at: 2017-03-09T10:27:01-05:00
 categories:
   - VBA
