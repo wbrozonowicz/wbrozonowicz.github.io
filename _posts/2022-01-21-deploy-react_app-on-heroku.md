@@ -17,7 +17,7 @@ Deploy React application on Heroku is extremely easy:
 1. create new app on Heroku dashboard webpage
 2. choose option Automatic deploys from github repo and provide your repo name
 3. go to Your app settings and click on Buildpacks section "Add buildpack"
-4. add react buildpack "/home/dev/Pobrane/react_buildpack.png"
+4. add react buildpack: "https://buildpack-registry.s3.amazonaws.com/buildpacks/mars/create-react-app.tgz" and save changes
 
 ![Add React buildpack](/images/react_posts/react_buildpack.png)
 
