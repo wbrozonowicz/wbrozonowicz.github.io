@@ -78,7 +78,7 @@ Solution: correct configuration of ssl is below (in config.json file):
 "ssl": true,
 ```
 
-## Problem no.3: Usege of Heroku "Config vars"
+## Problem no.3: Usage of Heroku "Config vars"
 Config vars are Heroku environment variables. When You connect database, the url of db will be saved in Config vars with key "DATABASE_URL". You can check it in Your app settings on Heroku webpage. It is nice option: when credantials will be automatically changed by Heroku, this var also will be updated. But how to setup config.json to use it in app? 
 
 Below code in config.json:
