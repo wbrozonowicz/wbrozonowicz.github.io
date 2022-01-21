@@ -16,6 +16,8 @@ tags:
 ## Heroku deploy
 
 Deploy application on Heroku is quite easy when You choose option Automatic deploys from github repo. One thing to remember is to put start script in package.json:
+
+{% include code-header.html %}
 ```js
   "scripts": {
     "start": "node app.js"
@@ -25,78 +27,88 @@ This way Heroku will automatically start Your app with command "node app.js"
 
 But there are three problems with Sequelize and Postgres database. 
 
-1. H12 error: "Request timeout"
+Problem no.1: H12 error: "Request timeout"
+
 You will get similar error to below example without any further logs and explanation:
 
 ```js
-heroku[router]: at=error code=H12 desc="Request timeout" method=GET path="/5s_api/companies" host=mobile5s.herokuapp.com request_id=b511669b-110d-4690-8a09-106bbc8c1712 fwd="83.26.169.197" dyno=web.1 connect=0ms service=30000ms status=503 bytes=0 protocol=https
+heroku[router]: at=error code=H12 desc="Request timeout" method=GET (...) dyno=web.1 connect=0ms service=30000ms status=503 bytes=0 protocol=https
 ```
 
 Solution: this error is related with node engine, it is not working with node version > 13. So to avoid this problem, just add in the package.json file below code:
+
 {% include code-header.html %}
 ```js
-	 "engines":{
-    "node": "<=13.9"
-  },
+"engines":{
+"node": "<=13.9"
+},
 ```
 This will force heroku to use Node in version lover than 14, which solves the problem. You should place this code in the beginning of the file as below:
+
+{% include code-header.html %}
 ```js
-	{
-  "name": "your_app_name",
-  "version": "1.0.0",
-  "description": "Your app description",
-  "main": "app.js",
-  "engines": {
-    "node": "<=13.9"
-  },
+{
+"name": "your_app_name",
+"version": "1.0.0",
+"description": "Your app description",
+"main": "app.js",
+"engines": {
+"node": "<=13.9"
+},
 ```
 
 2. ssl problem
-Another possible problem as in below log:
+
+Another possible problem is in below log:
+
 ```js
 Unable to connect to the database: ConnectionError [SequelizeConnectionError]: self signed certificate
 ```
 
 Solution: correct configuration of ssl is below (in config.json file):
+
 {% include code-header.html %}
 ```js
 "dialectOptions": {
-			"ssl": {
-				"require": true,
-				"rejectUnauthorized": false
-			}
-		},
-		"ssl": true,
+"ssl": {
+"require": true,
+"rejectUnauthorized": false
+}
+},
+"ssl": true,
 ```
 
 3. Usege of Heroku "Config vars"
-Config vars are Heroku environment variables. When You connect database, the url of db will be saved in Config vars with key "DATABASE_URL". You can check it Your app settings on Heroku webpage. It is nice option: when credantials will be automatically changed by Heroku, this var also will be updated. But how to setup config.json to use it? 
+Config vars are Heroku environment variables. When You connect database, the url of db will be saved in Config vars with key "DATABASE_URL". You can check it in Your app settings on Heroku webpage. It is nice option: when credantials will be automatically changed by Heroku, this var also will be updated. But how to setup config.json to use it in app? 
+
 Below code in config.json:
+
 {% include code-header.html %}
 ```js
-	"production": {
-		"database": "DATABASE_URL",
-		"dialect": "postgres",
-		"dialectOptions": {
-			"ssl": {
-				"require": true,
-				"rejectUnauthorized": false
-			}
-		},
-		"ssl": true,
-		"define": {
-			"timestamps": true,
-			"underscored": true,
-			"underscoredAll": true,
-			"createdAt": "created_at",
-			"updatedAt": "updated_at"
-		}
-	}
+"production": {
+"database": "DATABASE_URL",
+"dialect": "postgres",
+"dialectOptions": {
+"ssl": {
+"require": true,
+"rejectUnauthorized": false
+}
+},
+"ssl": true,
+"define": {
+"timestamps": true,
+"underscored": true,
+"underscoredAll": true,
+"createdAt": "created_at",
+"updatedAt": "updated_at"
+}
+}
 ```
 The define object is additional setup for underscore (I prefer it this way).
 
 The second step is to adjust the index.js file, that is inside models folder.
 Below how it should looks like (only begining of the file):
+
 ```js
 const fs = require('fs');
 const path = require('path');
@@ -109,9 +121,9 @@ const db = {};
 let sequelize;
 
 if (env !== 'development') {
-  sequelize = new Sequelize(process.env[config.database], config);
+sequelize = new Sequelize(process.env[config.database], config);
 } else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
+sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 ```
 
