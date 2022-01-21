@@ -51,4 +51,22 @@ Range(Cells(1, 1), Cells(UBound(resultData, 1), UBound(resultData, 2))) = result
 End Sub
 ```
 
-That's all - simple and easy!
+What if We want to get only some columns or paste them in target sheet in diferent order?
+Below example how to do this - for example get 3 columns: column 2,4,1 and print them to target sheet in this order:
+
+{% include code-header.html %}
+
+```vb
+Sub getOnlySomeColumnsExample()
+  Dim resultData() As Variant: resultData = getArrayData("C:\Report.xlsx", "Sheet1")
+  Dim columnsOut As Integer: columnsOut = 3 ' number of columns to print to target sheet
+  Dim printedData() As Variant: printedData = Range(Cells(1, 1), Cells(UBound(resultData, 1), columnsOut))
+  Dim i As Long
+    For i = LBound(resultData) To UBound(resultData)
+    printedData(i, 1) = resultData(i, 2)
+    printedData(i, 2) = resultData(i, 4)
+    printedData(i, 3) = resultData(i, 1)
+    Next
+  Range(Cells(1, 1), Cells(UBound(resultData, 1), columnsOut)) = printedData
+End Sub
+```
