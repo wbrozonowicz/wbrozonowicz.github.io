@@ -27,7 +27,7 @@ This way Heroku will automatically start Your app with command "node app.js"
 
 But there are three problems with Sequelize and Postgres database. 
 
-Problem no.1: H12 error: "Request timeout"
+## Problem no.1: H12 error: "Request timeout"
 
 You will get similar error to below example without any further logs and explanation:
 
@@ -57,7 +57,7 @@ This will force heroku to use Node in version lover than 14, which solves the pr
 },
 ```
 
-2. ssl problem
+## Problem no.2: ssl problem
 
 Another possible problem is in below log:
 
@@ -78,7 +78,7 @@ Solution: correct configuration of ssl is below (in config.json file):
 "ssl": true,
 ```
 
-3. Usege of Heroku "Config vars"
+## Problem no.3: Usege of Heroku "Config vars"
 Config vars are Heroku environment variables. When You connect database, the url of db will be saved in Config vars with key "DATABASE_URL". You can check it in Your app settings on Heroku webpage. It is nice option: when credantials will be automatically changed by Heroku, this var also will be updated. But how to setup config.json to use it in app? 
 
 Below code in config.json:
