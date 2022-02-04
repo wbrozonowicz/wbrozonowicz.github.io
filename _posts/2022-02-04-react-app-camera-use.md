@@ -20,13 +20,13 @@ npm install react-webcam
 ```
 Then follow these steps: 
 
-1. import webcam module
+1] import webcam module
 {% include code-header.html %}
 ```js
 import Webcam from "react-webcam";
 ```
 
-2. define state (We need 2 objects: imgSrc - it will be base64 image string, webcamRef - ref to device webcam)
+2] define state (We need 2 objects: imgSrc - it will be base64 image string, webcamRef - ref to device webcam)
 
 {% include code-header.html %}
 ```js
@@ -36,7 +36,7 @@ state = {
 	}
 ```
 
-3. define function to set webcamRef
+3] define function to set webcamRef
 
 {% include code-header.html %}
 ```js
@@ -45,7 +45,7 @@ setRef = (webcam) => {
 	  };
 ```
 
-4. define function to capture image
+4] define function to capture image
 
 {% include code-header.html %}
 ```js
@@ -55,7 +55,7 @@ capture = () => {
 	 };
 ```
 
-5. render our Webcam component with button to capture
+5] render our Webcam component with button to capture
 
 {% include code-header.html %}
 ```js
@@ -73,7 +73,7 @@ capture = () => {
       
 ```
 
-That's all - now You will have scanner of barcodes in Your React app!
+That's all!
 
 Some other options - check docs:
 https://www.npmjs.com/package/react-webcam
