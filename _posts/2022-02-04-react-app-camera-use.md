@@ -73,7 +73,7 @@ capture = () => {
       
 ```
 
-That's all - now You wil have base64 string in your app state, ready to further usage.
+That's all - now You will have scanner of barcodes in Your React app!
 
 Some other options - check docs:
 https://www.npmjs.com/package/react-webcam
