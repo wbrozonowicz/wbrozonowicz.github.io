@@ -5,7 +5,7 @@ last_modified_at: 2022-01-21T10:27:01-05:00
 categories:
   - JavaScript
 tags: 
-  - basic
+  - basics
 ---
 
 <!-- short introduction -->
