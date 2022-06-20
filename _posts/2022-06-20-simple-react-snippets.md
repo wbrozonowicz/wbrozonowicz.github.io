@@ -27,7 +27,7 @@ Then You can generate automatically code, my favaroute snippets are:
 5] imr -> Import React
 
 More in documentation:
-"https://marketplace.visualstudio.com/items?itemName=burkeholland.simple-react-snippets"
+{% https://marketplace.visualstudio.com/items?itemName=burkeholland.simple-react-snippets %}
 
 
 
