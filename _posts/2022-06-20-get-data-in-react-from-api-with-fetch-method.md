@@ -1,6 +1,6 @@
 ---
-title: "Get data from API in React - fetch method"
-excerpt: "Fetch() method in React & Timeout() example"
+title: "Get data from API in React - fetch method & setTimeout"
+excerpt: "fetch() method in React & setTimeout() example"
 last_modified_at: 2022-06-20T10:27:01-05:00
 categories:
   - JavaScript
@@ -23,20 +23,22 @@ import React from 'react';
 import "./Result.css";
 
 const Result = props => (
-  <li>Result is: <strong>{props.english}</strong>. Pl: <strong>{props.polish}</strong></li>
+  <li>Result is: <strong>{props.english}</strong> Pl: <strong>{props.polish}</strong></li>
 )
 
 export default Result;
 ```
 
-This component will render our data in form of list. We use this in App.js.
-We will use (for example) setTimeout function to delay execution of function by 5 seconds.
+This component will render our data (in form of list element). 
+We will use this in App.js.
 
-To get data the proper place is componentDidMount (after render).
-The property "isLoaded" is boolean flag of state of date (loaded or not loaded).
+We will also use (just for example) setTimeout() function to delay execution of getData() function by 5 seconds.
+
+To get data in React the proper place is componentDidMount (after render).
+The property "isLoaded" is boolean flag of state of data (loaded or not loaded).
 Function "getData" is just simple implementation of fetch():
 - url is only one argument of fetch
-- response is coming with AJAX so We have to use .then() and parse String that We get
+- response is coming with AJAX so We have to use .then() and parse String that We get to json object
 - to parse We use: response => response.json()
 - and after this, in next .then() we update data by setState ( get array named "results" from json and set flag isLoaded to true) 
 - in render We just use Result component with two props: "english" and "polish"
