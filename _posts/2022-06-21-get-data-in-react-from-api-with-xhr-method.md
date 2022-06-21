@@ -27,7 +27,7 @@ Function "requestDataByXHR" is just simple implementation of XMLHttpRequest:
 - in next step, we will use function open() of this object with 3 parameters: - http method (GET), url of API, and boolean parameter (true -> async, false -> sync)
 - next We will define what will happened when We get response from server. For this purpose We will use method "onload"
 - if response has status 200, We Will update our state with parsed data (in state We have to define object named "users")
-- We have to also use function send() of xhr object, that will send request. We do not send any data s parameter is null (can be also empty).
+- We have to also use function send() of xhr object, that will send request. We do not send any data so parameter is null (can be also empty).
 
 Below example of this function:
 
