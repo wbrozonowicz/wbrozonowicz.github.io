@@ -89,7 +89,47 @@ class App extends Component {
 
 export default App;
 ```
+Now let's make fetch with error catching. In this example We will use fetch() when user click button, so the function will have name "handleButtonClick".
 
+- Our URL will be in variable called "API"
+- in first then We will check if "ok" property of response = true (We could also check if status = 200). If it is ok, We will return response to next then()
+- if it is not true (not return response further) We will throw Error with response.status property
+- in next then() We will parse response to json (body from response will be parsed to JavaScript object) and it will be passed to next then()
+- in last then() We will assign response to variable user. In this case response is an array with onlu one user (this way comes from API)
+- We can now setState, but We want to add this new user to list of already existing users. So We will concat array from state (users) with new array with 1 element (user)
+- Because We use previus state and change it, We will use arrow function in setState. This is preffered way of changing existing state (when We use it but with modification)
+```js
+prevState => ({
+          users: prevState.users.concat(user)
+        })
+```
+- The last step is to catch error and print it to console. In this block We can also render some message to user (error description etc)
+
+{% include code-header.html %}
+```js
+const API = 'api url...';
+
+handleButtonClick = () => {
+    fetch(API)
+      .then(response => {
+        if (response.ok) {
+          return response;
+        }
+        throw Error(response.status)
+      })
+      .then(response => response.json())
+      .then(data => {
+        const user = data.results;
+        this.setState(prevState => ({
+          users: prevState.users.concat(user)
+        }))
+      })
+      .catch(error => console.log(error + " error has happened.."))
+
+  }
+  ```
+
+  
 
 That's all!
 
