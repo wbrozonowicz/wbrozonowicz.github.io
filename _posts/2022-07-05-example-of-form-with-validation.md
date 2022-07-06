@@ -1,71 +1,195 @@
 ---
-title: "Get data from API in React - XMLHttpRequest method"
-excerpt: "XMLHttpRequest method in React example"
-last_modified_at: 2022-06-21T10:27:01-05:00
+title: "Form in React - example with validation"
+excerpt: "Controlled component for simple React Form with validation - example"
+last_modified_at: 2022-07-05T10:27:01-05:00
 categories:
   - JavaScript
   - React
 tags: 
   - basics
-  - AJAX
 ---
 
 <!-- short introduction -->
-## Usage of XMLHttpRequest in React 
+## Form in React - example with validation
 
-XMLHttpRequest is  old method to get data from API (alternative for fetch() or Axios). Below simple example. 
+Below simple example of Form in React with validation. 
+Some notes:
+- noValidate in '<form onSubmit={this.handleSubmit} noValidate>' turn off default html5 validation (We will use our own function for this)  
+- componentDidUpdate() will be executed after every render (except the first one), We will use this to hide message after 5 seconds
+- setTimeout() take 2 arguments: function to execute and time of delay
+- if We specify htmlFor tag in <label htmlFor="name_input"> with the same name as input id (<input id="name_input"/>), when user click label it will activate input
+- to render message only on error we use '{this.state.errors.passwd && <span>{this.messages.password_not_ok}</span>}' - it will render span with text only when this.state.errors.passwd will be equal to true (error === true)
 
-
-We will use XMLHttpRequest in App.js to get data from API https://jsonplaceholder.typicode.com/users and render results.
-
-
-
-To get data in React the proper place is componentDidMount (after render)!
-
-Function "requestDataByXHR" is just simple implementation of XMLHttpRequest:
-- first We need to create object "xhr"
-- in next step, we will use function open() of this object with 3 parameters: - http method (GET), url of API, and boolean parameter (true -> async, false -> sync)
-- next We will define what will happened when We get response from server. For this purpose We will use method "onload"
-- if response has status 200, We Will update our state with parsed data (in state We have to define object named "users")
-- We have to also use function send() of xhr object, that will send request. We do not send any data so parameter is null (can be also empty).
-
-Below example of this function:
 
 {% include code-header.html %}
 ```js
-  requestDataByXHR() {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://jsonplaceholder.typicode.com/users', true);
-    xhr.onload = () => {
-      if (xhr.status === 200) {
-        const users = JSON.parse(xhr.response)
-        this.setState({ users })
-      }
+  import React, { Component } from 'react';
+import './App.css';
+
+class App extends Component {
+
+  state = {
+    username: '',
+    email: '',
+    passwd: '',
+    checkbox_accepted: false,
+    succes_message: '',  // text to show when validation is OK [after click submit button]
+
+    errors: {
+      username: false,
+      email: false,
+      passwd: false,
+      checkbox_accepted: false,
     }
-    xhr.send(null)
   }
-```
 
-This function We have to use in componentDidMount (for initial data request) or execute this later by click etc..
+  // messages will not be chenged, so there is no need to define them in state
+  messages = {
+    username_not_ok: 'Name is too short',
+    email_not_ok: 'Missing @ in email',
+    password_not_ok: 'Password should have 6 characters',
+    checkbox_not_ok: 'Checkbox should be checked'
+  }
 
-There is also the second way possible. Instead of  xhr.onload We can use xhr.addEventListener() function with "load" parameter, to get the same results. Below example
+  handleChange = (e) => {
+    const name = e.target.name;
+    const type = e.target.type;
+    // check type of input and set state accordingly
+    if (type === "text" || type === "password" || type === "email") {
+      const value = e.target.value;
+      this.setState({
+        [name]: value  
+      })
+    } else if (type === "checkbox") {
+      const checked = e.target.checked;
+      this.setState({
+        [name]: checked
+      })
+    }
+  }
 
-{% include code-header.html %}
-```js
-  requestDataByXHR() {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://jsonplaceholder.typicode.com/users', true);
-      xhr.addEventListener('load', () => {
-      if (xhr.status === 200) {
-        const users = JSON.parse(xhr.response)
-        this.setState({ users })
-      }
+  handleSubmit = (e) => {
+    e.preventDefault()  // prevent form from default submit
+
+    const validation = this.formValidation()  // run validation function
+
+    if (validation.form_ok) {
+      // clear inputs when validation is ok (reset form)
+      this.setState({
+        username: '',
+        email: '',
+        passwd: '',
+        checkbox_accepted: false,
+        message: 'Form is OK',
+
+        errors: {
+          username: false,
+          email: false,
+          passwd: false,
+          checkbox_accepted: false,
+        }
+      })
+    } else {
+      this.setState({
+        // setup errors object, We have validation.username === true when it is OK, and error === true 
+        // when there is error, so We have to use ! to reverse value
+        errors: {
+          username: !validation.username,
+          email: !validation.email,
+          passwd: !validation.password,
+          checkbox_accepted: !validation.checkbox_accepted
+        }
+      })
+    }
+  }
+
+  formValidation() { 
+    // function that validate all inputs and return object with total state of form (form_ok = true when validation is ok) 
+    // and state of each input (true or false, true if input is ok)
+ 
+    let username = false;
+    let email = false;
+    let password = false;
+    let checkbox_accepted = false;
+    let form_ok = false;
+
+    // if username should have more then 5 characters and not contain space
+    // string.idexOf('argument') will return -1 if not find argument in string, or index of argument in string
+    if (this.state.username.length > 5 && this.state.username.indexOf(' ') === -1) {
+      username = true;
+    }
+
+    if (this.state.email.indexOf('@') !== -1) {
+      email = true;
+    }
+
+    // password should have exactly 6 characters
+    if (this.state.passwd.length === 6) {
+      password = true;
+    }
+
+    // checkbox should be checked
+    if (this.state.checkbox_accepted) {
+      checkbox_accepted = true
+    }
+    
+    // if all inputs are ok
+    if (username && email && password && checkbox_accepted) {
+      form_ok = true
+    }
+
+    return ({
+      form_ok,
+      username,
+      email,
+      password,
+      checkbox_accepted
     })
-    xhr.send(null)
   }
+
+  // if succes message is not empty string, We will reset it after 5 seconds 
+  componentDidUpdate() {
+    if (this.state.succes_message !== '') {
+      setTimeout(() => this.setState({
+        message: ''
+      }), 5000)
+    }
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <form onSubmit={this.handleSubmit} noValidate>
+          <label htmlFor="name_input">Name:
+          <input type="text" id="name_input" name="username" value={this.state.username} onChange={this.handleChange} />
+            {this.state.errors.username && <span>{this.messages.username_not_ok}</span>}
+          </label>
+
+          <label htmlFor="email_input">Email:
+          <input type="email" id="email_input" name="email" value={this.state.email} onChange={this.handleChange} />
+            {this.state.errors.email && <span>{this.messages.email_not_ok}</span>}
+          </label>
+
+          <label htmlFor="password_input">Password:
+          <input type="password" id="password_input" name="passwd" value={this.state.passwd} onChange={this.handleChange} />
+            {this.state.errors.passwd && <span>{this.messages.password_not_ok}</span>}
+          </label>
+          <label htmlFor="accept_checkbox">
+            <input type="checkbox" id="accept_checkbox" name="checkbox_accepted" checked={this.state.checkbox_accepted} onChange={this.handleChange} /> I accept
+          </label>
+          {this.state.errors.checkbox_accepted && <span>{this.messages.checkbox_not_ok}</span>}
+          <button>Submit</button>
+        </form>
+        {this.state.succes_message && <h3>{this.state.succes_message}</h3>}
+      </div>
+    );
+  }
+}
+
+export default App;
 ```
 
-This is old method, better to use fetch() or Axios, but this also works fine.
+
 
 That's all!
 
