@@ -17,8 +17,8 @@ Some notes:
 - noValidate in "<form onSubmit={this.handleSubmit} noValidate>" turn off default html5 validation (We will use our own function for this)  
 - componentDidUpdate() will be executed after every render (except the first one), We will use this to hide message after 5 seconds
 - setTimeout() take 2 arguments: function to execute and time of delay
-- if We specify htmlFor tag in "<label htmlFor="name_input">" with the same name as input id "<input id="name_input"/>", when user click label it will activate input
-- to render message only on error we use "{this.state.errors.passwd && <span>{this.messages.password_not_ok}</span>}" - it will render span with text only when this.state.errors.passwd will be equal to true (error === true)
+- if We specify htmlFor tag in "<label htmlFor="name_input">" with the same name as input id (id="name_input"), when user click label it will activate input
+- to render something only on error===true we use f.e. for passwd "{this.state.errors.passwd && something...}" - it will render something only when this.state.errors.passwd will be equal to true (error === true)
 
 
 {% include code-header.html %}
