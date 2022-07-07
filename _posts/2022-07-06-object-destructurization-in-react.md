@@ -12,7 +12,7 @@ tags:
 <!-- short introduction -->
 ## Object destructurization in React - simple example 
 
-When We have complex object in React (for example in State), when We pass it to another component (in props) than We have to write full name of it like below:
+When We have complex object in React (for example in State), when We pass it to another component (in props) than We have to write full name of it like below, or We can use destructurization of this object.
 
 Object in state - array "some_objects":
 
