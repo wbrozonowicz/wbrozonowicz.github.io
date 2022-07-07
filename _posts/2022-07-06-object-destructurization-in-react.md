@@ -47,7 +47,7 @@ To make this shorter We can use destructurization and just get all elements We n
 
 
 ```js
-  const { name, date, id, status, active } = props.objects;
+  const { name, date, id, status, active } = props.object;
 ```
 
 Now We can use this short names like "name", "date", "id" etc in our code:
