@@ -81,7 +81,27 @@ This time to make copy of array from state We will use Array.from() method. To g
     })
   }
 ```
+Now We want to show results in our functiona component, that will get the array in props. Below how to do this.
+- We want to assign to const finishedTasks only these elements, that are finished (finished===true), so We will use filter() method
+- We will use map on this array and create another array, that We will render
+- We will render it only when there are any finished elements to show (length of array > 0)
+- We want also to show only maximum 10 elements of array (not more), so We will use slice() function. It will return new array (first argument is start , second argument is end [not inclusive]). So with slice(0,10) We will show elemnts from index===0 to index===9 (10 elements). Lets's see:
 
+```js
+const finishedElements = props.elements.filter(element => element.finished);
+const finishedElementsToShow = finishedElements.map(element => <Element key={element.id} element={element} delete={props.delete} change={props.change} />)
+
+return (
+    <>
+      <div className="finished">
+        <h1>Finished elements</h1>
+        {finishedElementsToShow.length > 0 ? finishedElementsToShow.slice(0,10) : <p>No finished elements to show, sorry...</p>}
+      </div>
+    </>
+  );
+
+
+```
 That's all!
 
 
