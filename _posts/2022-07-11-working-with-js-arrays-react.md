@@ -50,7 +50,7 @@ To work with this array, We will use two methods: one for deleting one element (
   }
 ```
 
-Alternatively We can use filter method as below. The difference is that filter method returns new array ith elements that match specified condition. So When our condition is that id of element should be different than id of clicked element, We will get array without it.
+Alternatively We can use filter method as below. The difference is that filter method returns new array with elements that match specified condition. So When our condition is that id of element should be different than id of clicked element, We will get array without it.
 
 {% include code-header.html %}
 ```js
@@ -72,7 +72,7 @@ This time to make copy of array from state We will use Array.from() method. To g
     const elements = Array.from(this.state.elements);
     elements.forEach(element => {
       if (element.id === id) {
-        element.finished = false;
+        element.finished = true;
         element.endDate = new Date().getTime()
       }
     })
@@ -81,8 +81,8 @@ This time to make copy of array from state We will use Array.from() method. To g
     })
   }
 ```
-Now We want to show results in our functiona component, that will get the array in props. Below how to do this.
-- We want to assign to const finishedTasks only these elements, that are finished (finished===true), so We will use filter() method
+Now We want to show results in our functional component, that will get the array in props. Below how to do this.
+- We want to assign to const finishedElements only these elements, that are finished (finished===true), so We will use filter() method
 - We will use map on this array and create another array, that We will render
 - We will render it only when there are any finished elements to show (length of array > 0)
 - We want also to show only maximum 10 elements of array (not more), so We will use slice() function. It will return new array (first argument is start , second argument is end [not inclusive]). So with slice(0,10) We will show elemnts from index===0 to index===9 (10 elements). Lets's see:
