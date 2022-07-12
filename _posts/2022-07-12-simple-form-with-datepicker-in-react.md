@@ -23,7 +23,7 @@ import React, { Component } from 'react';
 import './DatePickerFormExample.css';
 class DatePickerFormExample extends Component {
 
-  minDate = new Date().toISOString().slice(0, 10);
+  minimalDate = new Date().toISOString().slice(0, 10); // current date in "rrrr-mm-dd"
   state = {
     text: '',
     isChecked: false,
@@ -60,7 +60,7 @@ class DatePickerFormExample extends Component {
     return (
       <div className="formStyle">
         <input type="text" placeholder="add text" value={this.state.text} onChange={this.handleTextChange} />
-        <input type="checkbox" checked={this.state.isChecked} id="prority" onChange={this.handleCheckboxChange} />
+        <input type="checkbox" checked={this.state.isChecked} id="priority" onChange={this.handleCheckboxChange} />
         <label htmlFor="priority">Is priority?</label><br />
         <label htmlFor="date">Deadline</label>
         <input type="date" value={this.state.date} min={this.minimalDate} max={maximalDate} onChange={this.handleDateChange} />
