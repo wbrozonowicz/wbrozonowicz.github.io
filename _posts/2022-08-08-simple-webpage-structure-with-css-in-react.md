@@ -22,10 +22,10 @@ Below very simple webpage structure [react+css] with some comments:
 import React, { Component } from 'react';
 import '../styles/App.css';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Header from './Header';
-import Navigation from './Navigation';
-import Page from './Page';
-import Footer from './Footer';
+import HeaderComponent from './HeaderComponent';
+import NavigationComponent from './NavigationComponent';
+import PageComponent from './PageComponent';
+import FooterComponent from './FooterComponent';
 
 class App extends Component {
   render() {
@@ -53,7 +53,7 @@ class App extends Component {
 export default App;
 ```
 
-2. css file:
+2. css file (App.css):
 
 {% include code-header.html %}
 ```css
