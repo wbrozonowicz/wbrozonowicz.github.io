@@ -13,7 +13,7 @@ tags:
 <!-- short introduction -->
 ## Simple webpage structure in REACT
 
-Below very simple webpage structure with some comments:
+Below very simple webpage structure [react+css] with some comments:
 
 1. app.js file
 
