@@ -73,7 +73,7 @@ header img {
 }
 ```
 Some notes:
-- this css add style to elemnt <header> and img that is inside it, in our project
+- this css add style to element "header" and img that is inside it, in our project
 - top and left will shift image, but used with transform will center it
 - min-width and min-height will make img as big as container
 
