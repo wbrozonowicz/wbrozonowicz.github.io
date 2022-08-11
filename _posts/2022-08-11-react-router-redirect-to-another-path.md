@@ -47,7 +47,7 @@ import HomePageComponent from '../pages/HomePageComponent';
 import ProductPageComponent from '../pages/ProductPageComponent';
 import ProductListPageComponent from '../pages/ProductListPageComponent';
 import ContactPageComponent from '../pages/ContactPageComponent';
-import AdminPage from '../pages/AdminPage';
+import AdminComponent from '../pages/AdminComponent';
 import ErrorPageComponent from '../pages/ErrorPageComponent';
 import LoginPageComponent from '../pages/LoginPageComponent';
 
@@ -59,7 +59,7 @@ const Page = () => {
         <Route path="/products" component={ProductListPageComponent} />
         <Route path="/product/:id" component={ProductPageComponent} />
         <Route path="/contact" component={ContactPageComponent} />
-        <Route path="/admin" component={AdminPage} />
+        <Route path="/admin" component={AdminComponent} />
         <Route path="/login" component={LoginPageComponent} />
         <Route component={ErrorPageComponent} />
       </Switch>
