@@ -80,7 +80,7 @@ const App = () => {
 export default App;
 ```
 Notes:
-- We need to umport useState from React ("import React, {useState} from 'react';")
+- We need to import useState from React ("import React, {useState} from 'react';")
 - Every property is in separate hook, so We have to useStates (counter and info)
 - first is name of the property, second is setter for it (function to update, naming convention: "set" + "Name of the parameter") f.e. "const [info, setInfo]"
 - in useState() brackets there is default value for first render: f.e "useState("Default text")"
