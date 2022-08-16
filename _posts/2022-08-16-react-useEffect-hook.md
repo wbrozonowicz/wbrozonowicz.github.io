@@ -71,6 +71,9 @@ After every click We will have rerender and console will print:
 - "cleanUp function here"
 - "handle change here"
 
+But when We unmount component We will get only:
+- "cleanUp function here"
+
 
 Note: if effect is fired twice with empty array, try to delete in index.js tag: "<React.StrictMode>". 
 If it is fired more then one it could also be the effect of :
