@@ -71,6 +71,12 @@ After every click We will have rerender and console will print:
 - "cleanUp function here"
 - "handle change here"
 
+
+Note: if effect is fired twice with empty array, try to delete in index.js tag: "<React.StrictMode>". 
+If it is fired more then one it could also be the effect of :
+- This component appears more than once in your page
+- Something higher up the tree is unmounting and remounting
+
 That's all!
 
 
