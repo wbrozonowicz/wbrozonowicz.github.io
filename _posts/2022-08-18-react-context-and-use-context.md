@@ -1,3 +1,5 @@
+{% raw %} 
+
 ---
 title: "React context and Hook useContext"
 excerpt: "React context and Hook useContext"
@@ -20,7 +22,6 @@ It's very easy in functional components and a little bit weird in class componen
 First We have to define class with context. This is just a sheme (structure) of data that will be used and shared, with default data.
 Example - file will be "AppContext.js":
 
-{% include code-header.html %}
 ```js
 import { createContext } from 'react';
 
@@ -40,7 +41,7 @@ OK, now how to use it in Class component:
 
 First We have to have Context provider - class that Will keep state and share it with other components. We will have this in App.js file:
 
-{% include code-header.html %}
+
 ```js
 import { PureComponent } from 'react';
 
@@ -58,7 +59,7 @@ class App extends PureComponent {
       <div>
         <AppContext.Provider value={{
           isUserLoggedIn: this.state.isUserLoggedIn,
-          toggleLoggedInState: this.handleToggleStateIsLoggedIn,
+          toggleLoggedInState: this.handleToggleStateIsLoggedIn
         }}>
           <Button />
         </AppContext.Provider>
@@ -75,12 +76,12 @@ class App extends PureComponent {
 export default App;
 ```
 
+
 Notes:
 - We are wrapping Button component  with our context provider, with some values. This values comes from state (isUserLogged) or from class (function handleToggleStateIsLoggedIn)
 
 Now We want to use these values in Button component (context consumer) without props, below example:
 
-{% include code-header.html %}
 ```js
 import { PureComponent } from 'react';
 
@@ -113,7 +114,6 @@ Nice but even better is to use this in functional components with hook "useConte
 
 File App.js (context provider):
 
-{% include code-header.html %}
 ```js
 import { useState } from 'react';
 
@@ -141,7 +141,6 @@ export default App;
 
 Nice, now Button component (context consumer):
 
-{% include code-header.html %}
 ```js
 
 import { useContext } from 'react';
@@ -168,6 +167,8 @@ Ok, some notes:
 
 
 That's all!
+
+{% endraw %}
 
 
 
