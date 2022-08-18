@@ -74,6 +74,7 @@ class App extends PureComponent {
 
 export default App;
 ```
+
 Notes:
 - We are wrapping Button component  with our context provider, with some values. This values comes from state (isUserLogged) or from class (function handleToggleStateIsLoggedIn)
 
@@ -100,7 +101,6 @@ class Button extends PureComponent {
 
 export default Button;
 ```
-
 
 Notes:
 - onClick will get function from Context,
@@ -162,9 +162,9 @@ const Button = () => {
 
 export default Button;
 ```
+
 Ok, some notes:
 - it's so short and simple that notes are not needed :-)
-
 
 
 That's all!
