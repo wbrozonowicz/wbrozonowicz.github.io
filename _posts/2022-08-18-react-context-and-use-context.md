@@ -1,5 +1,3 @@
-{% raw %} 
-
 ---
 title: "React context and Hook useContext"
 excerpt: "React context and Hook useContext"
@@ -22,6 +20,8 @@ It's very easy in functional components and a little bit weird in class componen
 First We have to define class with context. This is just a sheme (structure) of data that will be used and shared, with default data.
 Example - file will be "AppContext.js":
 
+
+
 ```js
 import { createContext } from 'react';
 
@@ -41,7 +41,7 @@ OK, now how to use it in Class component:
 
 First We have to have Context provider - class that Will keep state and share it with other components. We will have this in App.js file:
 
-
+{% raw %} 
 ```js
 import { PureComponent } from 'react';
 
