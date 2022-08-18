@@ -92,9 +92,10 @@ class Button extends PureComponent {
 
   render() {
      const { isUserLoggedIn } = this.context;
+     const info = isUserLoggedIn ? 'logged in' : 'logged out'
     return (
       <button onClick={this.context.toggleLoggedInState}>
-        { isUserLoggedIn }
+        { info }
       </button>
     );
   }
@@ -142,9 +143,7 @@ export default App;
 Nice, now Button component (context consumer):
 
 ```js
-
 import { useContext } from 'react';
-import { useState } from 'react';
 
 import { AppContext } from './AppContext';
 
@@ -152,9 +151,11 @@ const Button = () => {
   const { toggleLoggedInState } = useContext(AppContext)
   const { isUserLoggedIn } = useContext(AppContext);
 
+  const info = isUserLoggedIn ? 'logged in' : 'logged out'
+
   return (
     <button onClick={toggleLoggedInState}>
-      {isUserLoggedIn}
+      {info}
     </button>
   );
 }
