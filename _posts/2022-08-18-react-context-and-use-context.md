@@ -166,8 +166,76 @@ export default Button;
 Ok, some notes:
 - it's so short and simple that notes are not needed :-)
 
+UPDATE!!!!
+
+But there is also much better way of doing the same!!
+We can implement all logic also in AppContext and then use it in other components. How? Below example:
+
+```js
+import React, { createContext, useState } from 'react';
+
+export const AppContext = createContext();
+
+const AppContextProvider = ({children}) => {
+  const [isUserLogged, setIsUserLogged] = useState(false);
+  const toggleLoggedState = () => {
+    setIsUserLogged(prevValue => !prevValue)
+  }
+
+return (
+  <AppContext.Provider value = {{isUserLogged, toggleLoggedState}}>
+    {children}
+  </AppContext.Provider>
+)
+}
+
+export default AppContextProvider;
+```
+
+What is "children"? These are all components that We will wrap with our AppContextProvider
+
+Now, App.js will look like below:
+```js
+import Panel from './Panel';
+import AppContextProvider from './AppContext';
+
+const App = () => (
+    <div>
+      <AppContextProvider>
+      <Panel/>
+      </AppContextProvider>
+    </div>
+  );
+
+export default App;
+```
+In Panel (and all other components inside, that are children of AppContextProvider) We can use our state from context:
+
+```js
+import React from 'react';
+import { useContext } from 'react';
+import { AppContext } from './AppContext';
+
+const Panel = () => {
+    const { isUserLogged } = useContext(AppContext);
+    const { toggleLoggedState } = useContext(AppContext)
+
+    const info = isUserLogged ? 'logged in' : 'logged out'
+
+    return (<div>
+        <h1>Is logged?</h1>
+        <button onClick={toggleLoggedState}>
+            {info}
+        </button>
+    </div>);
+}
+
+export default Panel;
+
+```
 
 That's all!
+
 
 {% endraw %}
 
