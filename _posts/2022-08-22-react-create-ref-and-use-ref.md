@@ -12,11 +12,11 @@ tags:
 <!-- short introduction -->
 ## React createRef and useRef
 
-When We want access some DOM element in React, or check if elemnt exists, We can use one of this two functions. Key differences betwen them:
+When We want access some DOM element in React, or check if element exists, We can use one of this two functions. Key differences betwen them:
 
 - useRef is not changed with every rerender, createRef is changed
-- on first render useRef and its "current" property is undefined, and with next rerender it is the same ref to DOM element
-- on first and every next render createRef is null
+- on first render useRef and its "current" property is undefined, and with next rerender it is the same ref to DOM element (it is not reset to undefined)
+- on first and every next render createRef is null, after rerender is once again assign to DOM element (it is reset to null)
 
 When to use it: 
 1. access DOM element f.e. set focus after render on input
