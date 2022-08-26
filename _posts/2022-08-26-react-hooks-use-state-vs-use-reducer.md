@@ -114,12 +114,11 @@ Notes:
 - useState is better for simple states f.e. 1, 2 or 3 simple properties
 
 --------------------
-
+{% raw %} 
 
 OK, and now We will combine useRducer with useContext, so We will have "store" in context, and inside it our reducer:
 1. File AppContext.js
 
-{% include code-header.html %}
 ```js
 import React, { createContext, useReducer  } from 'react';
 
@@ -165,7 +164,6 @@ export default AppContextProvider;
 2. File App.js will have wrapper, that will provide context to all children (nested components).
 
 
-{% include code-header.html %}
 ```js
 import React from 'react';
 import AppContextProvider from './AppContext';
@@ -195,7 +193,6 @@ We have two children here:
 
 First "Info.js":
 
-{% include code-header.html %}
 ```js
 import React, { useContext } from 'react';
 import { AppContext } from './AppContext';
@@ -215,7 +212,6 @@ export default Info;
 
 Now "ActionPanel.js":
 
-{% include code-header.html %}
 ```js
 import React, { useContext } from 'react';
 import { AppContext } from './AppContext';
@@ -243,6 +239,7 @@ export default ActionPanel;
 That's all!
 
 
+{% endraw %}
 
 
 
