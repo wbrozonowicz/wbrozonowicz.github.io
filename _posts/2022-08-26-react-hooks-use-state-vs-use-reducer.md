@@ -109,7 +109,7 @@ export default App;
 ```
 
 Notes:
-- reducer is better for testing and for complex logic, where there are any states
+- reducer is better for testing and for complex logic, where there are many states (nested objects etc )
 - useState is better for simple states f.e. 1, 2 or 3 simple properties
 
 That's all!
