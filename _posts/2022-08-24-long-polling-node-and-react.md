@@ -5,8 +5,9 @@ last_modified_at: 2022-08-22T10:27:01-05:00
 categories:
   - JavaScript
   - React
+  - Node
 tags: 
-  - hooks
+  - fetch
 ---
 
 <!-- short introduction -->
