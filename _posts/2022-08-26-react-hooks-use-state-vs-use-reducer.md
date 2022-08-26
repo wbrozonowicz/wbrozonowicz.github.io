@@ -90,6 +90,7 @@ const App = () => {
   return (
     <>
       <div>
+
         <p>Current result:{counter.result}</p>
         <p>Current quantity:{counter.quantity}</p>
         <button onClick={() => dispatch({ type: "MINUS", btnID: 'minusBtn' })}>Minus</button>
@@ -111,6 +112,133 @@ export default App;
 Notes:
 - reducer is better for testing and for complex logic, where there are many states (nested objects etc )
 - useState is better for simple states f.e. 1, 2 or 3 simple properties
+
+--------------------
+
+
+OK, and now We will combine useRducer with useContext, so We will have "store" in context, and inside it our reducer:
+1. File AppContext.js
+
+{% include code-header.html %}
+```js
+import React, { createContext, useReducer  } from 'react';
+
+const initialState = { result: 0, quantity: 1 }
+
+const reducer = (state, action) => {
+  console.log('clicked button ' + action.btnID)
+  switch (action.type) {
+    case "PLUS":
+      return { result: state.result + state.quantity, quantity: state.quantity }
+    case "MINUS":
+      return { result: state.result - state.quantity, quantity: state.quantity }
+    case "RESET":
+      return { result: 0, quantity: state.quantity }
+    case "SET_VALUE_TO_1":
+        return { result: state.result, quantity: 1 }
+    case "SET_VALUE_TO_5":
+      return { result: state.result, quantity: 5 }
+    default:
+      return state;
+  }
+};
+
+export const AppContext = createContext(
+  {
+  counter: initialState,
+  dispatch: () => null
+}
+);
+
+const AppContextProvider = ({children}) => {
+  const [counter, dispatch] = useReducer(reducer, initialState);
+return (
+  <AppContext.Provider value = {{counter, dispatch}}>
+    {children}
+  </AppContext.Provider>
+)
+}
+
+export default AppContextProvider;
+```
+
+2. File App.js will have wrapper, that will provide context to all children (nested components).
+
+
+{% include code-header.html %}
+```js
+import React from 'react';
+import AppContextProvider from './AppContext';
+import Info from './Info'
+import ActionPanel from './ActionPanel'
+
+const App = () => {
+
+  return (
+    <>
+        <AppContextProvider>
+          <Info></Info>
+          <ActionPanel></ActionPanel>
+      </AppContextProvider>
+    </>
+
+  )
+
+}
+
+export default App;
+```
+
+We have two children here:
+- "Info" will use state of counter (print result and quantity from state) from AppContext
+- "ActionPanel" will use dispatch method from AppContext
+
+First "Info.js":
+
+{% include code-header.html %}
+```js
+import React, { useContext } from 'react';
+import { AppContext } from './AppContext';
+
+const Info = () => {
+    const { counter } = useContext(AppContext)
+
+    return (<div>
+        <p>Current result:{counter.result}</p>
+        <p>Current quantity:{counter.quantity}</p>
+    </div>);
+}
+
+export default Info;
+```
+
+
+Now "ActionPanel.js":
+
+{% include code-header.html %}
+```js
+import React, { useContext } from 'react';
+import { AppContext } from './AppContext';
+
+
+const ActionPanel = () => {
+    const { dispatch } = useContext(AppContext)
+
+    return (
+        <div>
+            <button onClick={
+                () => dispatch({ type: "MINUS", btnID: 'minusBtn' })}>Minus</button>
+            <button onClick={() => dispatch({ type: "PLUS", btnID: 'plusBtn' })}>Plus</button>
+            <button onClick={() => dispatch({ type: "RESET", btnID: 'resetBtn' })}>Reset</button>
+            <br />
+            <button onClick={() => dispatch({ type: "SET_VALUE_TO_1", btnID: 'set1Btn' })}>1</button>
+            <button onClick={() => dispatch({ type: "SET_VALUE_TO_5", btnID: 'set5Btn' })}>5</button>
+        </div>
+    );
+}
+
+export default ActionPanel;
+```
 
 That's all!
 
