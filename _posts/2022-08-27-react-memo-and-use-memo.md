@@ -136,6 +136,11 @@ const ClickCounter  = ({counterState, btn}) => {
 export default ClickCounter;
 ```
 
+Syntax of useMemo is simple:
+- first argument in useMemo() is callback that returns component, second is array of dependency
+- when we pass object in props, in array of dependency just specify which property of object should couse rerender
+
+
 That's all!
 
 
