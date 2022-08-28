@@ -73,7 +73,7 @@ export default React.memo(ClickCounter);
 
 Now click on button1 will not fired rerender of clicker assign to button2.
 
-But when we pass in props not simple value, but object, it will not work properly. In this case, solution is useMemo hook:
+But when we pass in props not simple value, but object, it will not work properly. In this case, solution is useMemo hook. UseMemo Hook returns a memoized value, so it is generally suitable for expensive functions. Because functional components are also functions in React, so this hook is also very good for prevent rendering such components.
 
 - "App.js":
 
@@ -140,6 +140,38 @@ Syntax of useMemo is simple:
 - first argument in useMemo() is callback that returns component, second is array of dependency
 - when we pass object in props, in array of dependency just specify which property of object should couse rerender
 
+
+Another scenerio:
+We have expensive function, that is fired on every render of component. f.e.:
+
+```js
+const App = () => {
+  const [count, setCount] = useState(0);
+  const calculation = expensiveFunction(count);
+
+  const expensiveFunction = (num) => {
+// expensive logic
+};
+
+ // ... the rest of component
+
+```
+
+To prevent recalculating of expensiveFunction with every render, We can use hook like below:
+
+```js
+const App = () => {
+  const [count, setCount] = useState(0);
+  const calculation = useMemo(() => expensiveFunction(count), [count]);
+
+  const expensiveFunction = (num) => {
+// expensive logic
+};
+
+ // ... the rest of component
+
+```
+Now expensiveFunction will be recalculating only when count will be changed!
 
 That's all!
 
