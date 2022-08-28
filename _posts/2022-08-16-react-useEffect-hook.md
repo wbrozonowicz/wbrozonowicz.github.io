@@ -1,6 +1,6 @@
 ---
-title: "Hook useEffect in React"
-excerpt: "Hook useEffect in React"
+title: "Hook useEffect in React (and useLayoutEffect)"
+excerpt: "Hook useEffect in React (and useLayoutEffect)"
 last_modified_at: 2022-08-14T10:27:01-05:00
 categories:
   - JavaScript
@@ -79,6 +79,15 @@ Note: if effect is fired twice with empty array, try to delete in index.js tag: 
 If it is fired more then one it could also be the effect of :
 - This component appears more than once in your page
 - Something higher up the tree is unmounting and remounting
+
+Bonus:
+Another hook useLayoutEffect is almost identical, but with one deifference:
+- useEffect is performed after DOM elements are render
+- useLayoutEffect is performed after DOM elements are render
+
+When to use?
+- almost in all casses useEffect is OK
+- when You manipulate in JS with DOM element (translate, rotate etc) better to use useLayoutEffect - it will make transformation before render and animation will be better (very subtle difference, depending also on speed of web browser...)
 
 That's all!
 
