@@ -22,6 +22,7 @@ import {
   BrowserRouter,
   Routes,
   Route,
+  Navigate
 } from "react-router-dom";
 
 import Navigation from './Navigation';
@@ -40,6 +41,11 @@ const App = () => {
           <Route path="/" element={<StartPage />} />
           <Route path="/page1" element={<Page1 />} />
           <Route path="/page2" element={<Page2 />} />
+          {/*  when wrong path -> redirect to "/" */}
+          <Route
+        path="*"
+        element={<Navigate to="/" replace />}
+    />
         </Routes>
       </BrowserRouter>
 
