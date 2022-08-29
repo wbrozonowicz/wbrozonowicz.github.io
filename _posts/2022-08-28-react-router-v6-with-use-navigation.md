@@ -12,12 +12,14 @@ tags:
 <!-- short introduction -->
 ## React router v6 with useNavigation
 
-OK, example of simple routing with useNavigation hook:
+OK, example of simple routing with useNavigation hook.
+- We have App that shows Page1 and Page2 to logged user (also on Navigation) and shows StartPage for all users
+- If user define wrong path, app will redirect to StartPage
 
 - App.js:
 {% include code-header.html %}
 ```js
-import React from 'react';
+import React, {useState} from 'react';
 import {
   BrowserRouter,
   Routes,
@@ -32,6 +34,8 @@ import Page2 from './Page2';
 
 const App = () => {
 
+  const [logged] = useState(true)
+
   return (
     <>
       <BrowserRouter>
@@ -39,7 +43,12 @@ const App = () => {
 
         <Routes>
           <Route path="/" element={<StartPage />} />
+          {logged ? 
           <Route path="/page1" element={<Page1 />} />
+        :
+         null
+        }
+          
           <Route path="/page2" element={<Page2 />} />
           {/*  when wrong path -> redirect to "/" */}
           <Route
@@ -63,34 +72,47 @@ export default App;
 
 {% include code-header.html %}
 ```js
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const itemList = [
-  { name: "home", path: "/"},
-  { name: "page1", path: "/page1" },
-  { name: "page2", path: "/page2" },
+    { name: "home", path: "/", forLogged: false },
+    { name: "page1", path: "/page1", forLogged: true },
+    { name: "page2", path: "/page2", forLogged: true },
 ]
 
 const Navigation = () => {
 
-  const myMenu = itemList.map(item => (
-    <li key={item.name}>
-      <Link to={item.path}>{item.name}</Link>
-    </li>
-  ))
+    const [logged] = useState(true)
 
-  return (
-    <nav className="main_menu">
-      <ul>
-        {myMenu}
-      </ul>
-    </nav>
-  );
+
+    const myMenu = itemList.map(item => {
+        if (!item.forLogged) {
+            return (<li key={item.name}>
+                <Link to={item.path}>{item.name}</Link>
+            </li>
+            )
+        } else {
+            return (!logged ?
+                null
+                :
+                <li key={item.name}>
+                    <Link to={item.path}>{item.name}</Link>
+                </li>)
+        }
+    }
+    )
+
+    return (
+        <nav className="main_menu">
+            <ul>
+                {myMenu}
+            </ul>
+        </nav>
+    );
 }
 
 export default Navigation;
-
 ```
 
 - StartPage.js:
