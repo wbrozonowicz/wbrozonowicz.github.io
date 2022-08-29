@@ -12,7 +12,7 @@ tags:
 <!-- short introduction -->
 ## React router v6 with useNavigation
 
-OK, example:
+OK, example of simple routing with useNavigation hook:
 
 - App.js:
 {% include code-header.html %}
@@ -87,7 +87,91 @@ export default Navigation;
 
 ```
 
-Now child components (buttons) will be not rerender.
+- StartPage.js:
+
+{% include code-header.html %}
+```js
+import React from 'react';
+import { useNavigate } from 'react-router-dom'
+
+const StartPage = () => {
+
+const navigate = useNavigate()
+
+const handleGoBack = () => navigate(-1);
+const handleGoToPage1 = () => navigate('/page1')
+const handleGoToPage2 = () => navigate('/page2')
+
+    return (
+        <div>
+            <p>start</p>
+            <button onClick={handleGoBack}>Go back</button> <br />
+            <button onClick={handleGoToPage1}>Go to Page1</button> <br />
+            <button  onClick={handleGoToPage2}>Go to Page2</button> <br />
+        </div>
+    );
+}
+
+export default StartPage;
+```
+
+- Page1.js:
+
+{% include code-header.html %}
+```js
+import React from 'react';
+import { useNavigate } from 'react-router-dom'
+
+const Page1 = () => {
+
+    const navigate = useNavigate()
+
+    const handleGoBack = () => navigate(-1);
+    const handleGoToStart = () => navigate('/')
+    const handleGoToPage2 = () => navigate('/page2')
+
+    return (
+        <div>
+            <p> Page 1 </p>
+            <button onClick={handleGoBack}>Go back</button> <br />
+            <button onClick={handleGoToStart}>Go to Start</button> <br />
+            <button onClick={handleGoToPage2}>Go to Page2</button> <br />
+        </div>
+    );
+}
+
+export default Page1;
+```
+
+- Page2.js:
+
+{% include code-header.html %}
+```js
+import React from 'react';
+
+import { useNavigate } from 'react-router-dom'
+
+const Page2 = () => {
+
+    const navigate = useNavigate()
+
+    const handleGoBack = () => navigate(-1);
+    const handleGoToPage1 = () => navigate('/page1')
+    const handleGoToStart = () => navigate('/')
+
+    return (
+        <div>
+            <p> Page 2 </p>
+            <button onClick={handleGoBack}>Go back</button> <br />
+            <button onClick={handleGoToStart}>Go to Start</button> <br />
+            <button onClick={handleGoToPage1}>Go to Page1</button> <br />
+        </div>
+    );
+}
+
+export default Page2;
+```
+
 
 That's all!
 
