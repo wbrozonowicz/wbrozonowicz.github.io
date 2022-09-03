@@ -27,7 +27,7 @@ So let's create directories:
 - actions
 - reducers
 
-In store directory create file "store.js". We will have in uor store "tasks" array.
+In store directory create file "store.js". We will have in our store "tasks" array. If We want to keep in store more objects, just add them to reducer object.
 
 {% include code-header.html %}
 ```js
@@ -118,7 +118,7 @@ export const taskReducer = (state = [], action) => {
     case DELETE_TASK:
       return state.filter(currentStateElement => currentStateElement.id !== action.payload.id);
 
-    // nt defined action type -> show warning and retirn existing state
+    // not defined action type -> show warning and retirn existing state
     default:
       console.warn(`Action type not defined: ${action.type}`);
       return state;
@@ -149,11 +149,11 @@ root.render(
 );
 ```
 
-In our prjects We will have:
-- App.js: main cmponent
+In our project We will have:
+- App.js: main component
 - TaskList: here We will get all tasks from store
 - TaskForm: here We will have button to add/edit task 
-- Task: for rendering task
+- Task: for rendering task with button to delete tasks from store
 
 So let's take a look at our components:
 - App.js file:
@@ -333,7 +333,7 @@ export default Task;
 ```
 
 Summary:
-- to get something frm store:  
+- to get something from store:  
 ```js
 import { useSelector } from 'react-redux';
 // ....
