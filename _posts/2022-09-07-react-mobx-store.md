@@ -13,15 +13,15 @@ tags:
 <!-- short introduction -->
 ## React MOBX store example
 
-MobX is alternative library to Redux. To use is first: 
+MobX is alternative library to Redux. To use it, first: 
 - npm install mobx
-- npm install mobx-rect
+- npm install mobx-react
 
 MobX will need:
 - Root store: this is where We will keep all stores and combine them into one
 - Store Provider: wrapper that will provide store for children elements
 - custom hooks to use store
-- store: in this file We will keep state and action to modify it
+- store: in this file We will keep state and actions to modify it
 
 So let's create directories:
 - stores
@@ -108,7 +108,7 @@ export default class TasksStore {
 }
 ```
 
-Now in folder components We will have Taks to show list of task and TaskForm to add new Task:
+Now in folder components We will have Tasks.js file to show list of tasks and TaskForm,js file to add new Task:
 - Tasks.js file:
 {% include code-header.html %}
 ```js
