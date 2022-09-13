@@ -25,7 +25,7 @@ So let's see simple and easy example:
 Project organization:
 - Folder: "app" -> file "store.ts" and "hooks.ts"
 
-file "store.js":
+file "store.ts":
 
 {% include code-header.html %}
 ```ts
