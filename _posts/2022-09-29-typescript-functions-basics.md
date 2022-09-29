@@ -18,24 +18,24 @@ Basic functions:
 
 {% include code-header.html %}
 ```ts
-function add(fistNum: number, secondNum: number): number {
+function add(firstNum: number, secondNum: number): number {
   return firstNum+secondNum;
 const res = add(3,4); // will return 7
 }
 // equivalent - TS will define retuned type based on parameters :
-function add(fistNum: number, secondNum: number) {
+function add(firstNum: number, secondNum: number) {
   return firstNum+secondNum;
 }
 // default values, also will make them optional, when not passed TS wil take defaults
-function add(fistNum: number = 0, secondNum: number = 0) {
+function add(firstNum: number = 0, secondNum: number = 0) {
   return firstNum+secondNum;
 }
 // equivalent:
-function add(fistNum = 0, secondNum = 0) {
+function add(firstNum = 0, secondNum = 0) {
   return firstNum+secondNum;
 }
 // with use of union types:
-function add(fistNum: number | string = 0, secondNum: number | string = 0) {
+function add(firstNum: number | string = 0, secondNum: number | string = 0) {
   return Number(firstNum)+Number(secondNum);
 }
 const res = add(3,'4'); // will return 7
