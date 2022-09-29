@@ -45,11 +45,9 @@ const ConstStringsExample = {
 let unknownExample: unknown; // type that could be different 
 if (typeof unknownExample === 'string'){ stringArray.push(unknownExample) }
 let badExample: any; // any is 'anything' - don't use it in TS unless You have realy good reason...
-function showLog(): void {console.log('log...')}; // type void for function yhat doesn't return any value (type)
+function showLog(): void {console.log('log...')}; // type void for function that doesn't return any value (type)
 // there is also type "never" but it is for very rare and special cases...
 ```
-
-
 
 That's all!
 
