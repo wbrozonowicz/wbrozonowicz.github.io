@@ -79,7 +79,7 @@ updateDeveloper(pesel:number, newData: T){
 }
 }
 
-// now use our class - the same class will use two different types:
+// now use our class - the same class will use two different types (and only these two):
 const frontendDevs = new DevelopersTeam<FrontendDeveloper>();
 frontendDevs.addDeveloper({
   firstName: 'John',
