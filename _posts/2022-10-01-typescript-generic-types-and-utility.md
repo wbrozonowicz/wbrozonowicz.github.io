@@ -14,7 +14,7 @@ tags:
 
 
 
-Generic types:
+- Generic types:
 
 {% include code-header.html %}
 ```ts
@@ -95,6 +95,139 @@ backendDevs.addDeveloper({
   pesel:3344552234,
   backendFramework:'Node.js'
 })
+
+```
+
+- Utility Types:
+
+{% include code-header.html %}
+```ts
+// Partial -> only some of properties are rquired f.e.:
+type Person = {
+  id: number;
+  firstName: string;
+  lastName: string;
+}
+
+const newMan = {
+  id:1,
+  firstName: 'Adam',
+  lastName: 'First',
+}
+
+const editedManData = {
+  lastName: 'Second',
+}
+
+function updatePersonData(obj: Person, objData: Partial<Person>){
+return {...obj, ...objData}
+}
+
+updatePersonData(newMan, editedManData); // second argument is Partial so doean't have to have all parameters from Person, but only one that is the same f.e. lastName
+
+// Required -> makes all parameters (also optional) required f.e. 
+
+type Employee = {
+  id: number;
+  lastName: string;
+  position?: string; // optional
+}
+
+function addWorker(worker: Required<Employee>){
+  workers.push(worker);
+}
+
+// ReadOnly -> makes all properties 'read only' - after set can not be updated
+
+const someMan: ReadOnly<Employee> = {
+  id:1,
+  lastName: 'Doe',
+  position: 'manager'
+}
+
+someMan.lastName = 'EditedName' // not possible!!!
+//ReadOnly also can be used in function to be sure that it will not edit object..
+
+// Record -> makes kind of 'key - value' pair object f.e.
+type PossibleKeys = 'pl' | 'de' | 'en';
+type LanguageData = {
+  nameOfLanguage: string,
+  difficultyLevel: string,
+}
+type Lang = Record<PossibleKeys, LanguageData>
+
+const myLang: Lang = {
+  pl: {nameOfLanguage: 'polish', difficultyLevel: 'hard'},
+  en: {nameOfLanguage: 'english', difficultyLevel: 'easy'},
+  de: {nameOfLanguage: 'german', difficultyLevel: 'moderate'},  
+};
+
+// Pick -> makes only picked properties available in fuction f.e.:
+type Human = {
+  firstName: string;
+  lastName: string;
+  age: number;
+}
+
+functionUpdateHumanNamePick(humanToUpdate:Pick<Human, 'firstName' | 'lastName'>, newName:string, newLastName:string){
+humanToUpdate.firstName = newName;
+humanToUpdate.lastName = newLastName;
+// age is not editable in this function (it is not specify in Pick<>)
+}
+
+// Omit -> opposite to Pick f.e.
+functionUpdateHumanNameOmit(humanToUpdate:Omit<Human, 'age'>, newName:string, newLastName:string){
+humanToUpdate.firstName = newName;
+humanToUpdate.lastName = newLastName;
+// age is not editable in this function (it is specify in Omit<>)
+}
+
+// Exclude -> get from union without specified members f.e.:
+type Sport = 'BasketBall' | 'Football' | 'Ski jumping';
+type SummerSport = Exclude<Sport, 'Ski jumping'>;
+const myFavSport: SummerSport = 'Ski jumping' // not allowed - Ski jumping was excluded from Sport type!
+
+//  Extract -> get from union only specified members f.e.:
+type SummerSport = Extract<Sport, 'BasketBall' | 'Football' >;
+const myFavSport: SummerSport = 'Ski jumping' // not allowed - Ski jumping was not extracted fromSport type!
+
+// NonNullable -> makes type without null & undefined
+type UserDescription = string | null | undefined;
+type TypeUserDescriptionNotNullable = NonNullable<UserDescription>; // now only string is OK for this type
+
+// Parameters -> makes type with sepecified parameters f.e.:
+function exampleFunction(id:number, text:string, value: number){
+  console.log(`id=${id} text= ${text} value=${value}`);
+}
+
+type NeededParams = Parameters<typeof exampleFunction>;
+const ParemetersForFunction: NeededParams = [1, 'some text', 999]; 
+exampleFunction(...ParemetersForFunction); // here We use specified parameters in specified order: id, text and value
+
+// ConstructorParameters -> takes parameter form class constructor f.e.:
+class User{
+  constructor(
+    public age: number,
+    public nameOfUser: string,
+  ) {}
+}
+
+type UserClassParams = ConstructorParameters<typeof User>;
+const userParams: UserClassParams = [24, 'Adam']; // here We use specified parameters from constructor of User class
+new User(...userParams);
+
+// ReturnType -> type that is returned from some function
+type Dude = {
+  age: number,
+  firstName:string,
+  lastName:string,
+}
+
+function getAge(dude: Dude){
+  return dude.age;
+}
+
+const dudeAge: ReturnType<typeof getAge> = 32; // const dudeAge is type of number because it is type rturned from getAge function 
 
 ```
 
