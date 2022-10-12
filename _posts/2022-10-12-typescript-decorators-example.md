@@ -42,7 +42,7 @@ function minValue(value: number) {
     const returnedFunction = function(this: Object, ...any[]){
       console.log("before function execution...);
       if (args.some((ageVal) => ageVal < value )){
-        return console.log("Age can not be smaller than 0");
+        return console.log("Age can not be smaller than 0!");
       }
       inputFunction.apply(this, args);
       console.log("after function execution...);
