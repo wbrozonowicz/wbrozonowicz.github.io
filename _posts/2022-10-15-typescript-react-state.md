@@ -80,7 +80,7 @@ export default function App(){
 
 {% include code-header.html %}
 ```ts
-import { useState, Dispatch, SetStateAction } from 'react;
+import { useState, Dispatch, SetStateAction } from 'react';
 
 type FunctionComponentExampleProps = {
   startValue?: number | string;
