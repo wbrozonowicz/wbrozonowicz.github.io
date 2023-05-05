@@ -79,24 +79,24 @@ object2.setMyRating.call(object2,7); // still set rating for object1! with value
 
 Results in console:
 
-run function showMyName of object1:
-class 1
-run function showMyName of object2:
-class 2
-binding to object 1
-run function showMyName of object2 after binding to object1:
-class 1
-rating set for class 2 = 4
-call for object1
-rating set for class 1 = 5
-rating set for class 2 = 6
-apply for object1
-rating set for class 1 = 7
-rating set for class 2 = 9
-binding setMyRating to object1
-rating set for class 1 = 55
-rating set for class 1 = 15
-rating set for class 1 = 7
+- run function showMyName of object1:
+- class 1
+- run function showMyName of object2:
+- class 2
+- binding to object 1
+- run function showMyName of object2 after binding to object1:
+- class 1
+- rating set for class 2 = 4
+- call for object1
+- rating set for class 1 = 5
+ -rating set for class 2 = 6
+ -apply for object1
+ -rating set for class 1 = 7
+ -rating set for class 2 = 9
+- binding setMyRating to object1
+- rating set for class 1 = 55
+- rating set for class 1 = 15
+- rating set for class 1 = 7
 
 
 
