@@ -13,6 +13,43 @@ tags:
 <!-- short introduction -->
 ## JavaScript - About THIS!
 
+"This" is owner object of function. So if we create function in global namespace f.e.:
+```js
+function ExampleFunction(){
+  console.log(`my THIS is:${this}`)
+}
+```
+
+...and now run this function directly, then we will see that This is owner, in web browser it is window.
+If function is defined for specific object - the owner (this object) will be "this"
+
+```js
+ExampleFunction();
+```
+
+But functions also can be object in JS and for example:
+```js
+let functionAsObject = new ExampleFunction();
+```
+
+In this case "This" will be different: object function "ExampleFunction" will be owner and "This".
+
+So "This" depends on context!
+What is problem with "this" in JS?
+- Sometimes reference (context) is changed and "This" is different, than We think... (f.e. in promises or DOM elements in addEventListener) 
+
+Solution: use bind, call or apply method to define context, or arrow function.
+Arrow function will always takes as context upper scope so it is easy to use (easier to identify what "This" is).
+
+Some rules:
+
+- arrow function —  "this" is from surrunding scope
+- object or function as object, with "new" keyword — "this" is creted object
+- call/apply/bind — 'this' is object passed to these methods as first argument
+- when function is run on object f.e. object.run() — "this" is object on which we run function
+- default — undefined in strict mode, global object in different case
+
+
 - bind will permanently assign function to this of different object!
 - call and apply will assign function to this of different object only once, during execute
 - call takes first argument - object to bind, and next other arguments of function (as in its signature)
