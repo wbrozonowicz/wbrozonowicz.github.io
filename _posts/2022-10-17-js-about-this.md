@@ -13,6 +13,11 @@ tags:
 <!-- short introduction -->
 ## JavaScript - About THIS!
 
+- bind will permanently assign function to this of different object!
+- call and apply will assign function to this of different object only once, during execute
+- call takes first argument - object to bind, and next other arguments of function (as in its signature)
+- apply takes first argument - object to bind, and next array of arguments of function (as in its signature)
+- after bind, call and apply will not work
 
 - Example code:
 
@@ -89,10 +94,10 @@ Results in console:
 - rating set for class 2 = 4
 - call for object1
 - rating set for class 1 = 5
- -rating set for class 2 = 6
- -apply for object1
- -rating set for class 1 = 7
- -rating set for class 2 = 9
+- rating set for class 2 = 6
+- apply for object1
+- rating set for class 1 = 7
+- rating set for class 2 = 9
 - binding setMyRating to object1
 - rating set for class 1 = 55
 - rating set for class 1 = 15
