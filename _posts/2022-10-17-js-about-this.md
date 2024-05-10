@@ -141,6 +141,8 @@ Results in console:
 - rating set for class 1 = 7
 
 
+That's all!
+
 
 
 
