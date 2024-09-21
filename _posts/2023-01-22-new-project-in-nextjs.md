@@ -37,6 +37,9 @@ Options:
 ✔ Would you like to customize the default import alias (@/*)? … No / Yes -> NO!! (better overview when You see full import path)
 ```
 
+Don't forget to instal in VSC helpful plugins: ESLINT  & PRETTIER
+
+
 Run project:
 
 {% include code-header.html %}
