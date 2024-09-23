@@ -39,9 +39,8 @@ Benefits:
   background-color: darkblue;
 }
 ```
-create component Button.js
 
-Use in component:
+2. Create component Button.js
 
 {% include code-header.html %}
 ```js
@@ -59,7 +58,7 @@ const Button = ({ children }) => {
 export default Button;
 ```
 
-Use Button component in app:
+Use "Button" component in app:
 
 {% include code-header.html %}
 ```js
@@ -205,6 +204,6 @@ export default RootLayout
 ```
 
 Summary:
-Use separate files "somepage.module.scss" in each page directory, if style for one specific page is needed
-Use global file "global.scss: in directory "styles" and wrap around {children} in top level layout.tsx, if all pages needs the same styles
+- Use separate files "somepage.module.scss" in each page directory, if style for one specific page is needed
+- Use global file "global.scss: in directory "styles" and wrap around {children} in top level layout.tsx, if all pages needs the same styles
 

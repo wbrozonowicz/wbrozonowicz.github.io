@@ -18,7 +18,6 @@ ONLY FOR CLIENT SIDE COMPONENTS!
 
 install library f.e.:
 
-
 {% include code-header.html %}
 ```
 npm install styled-components
@@ -57,7 +56,7 @@ export default App;
 ```
 
 Other libraries:
- chech dosc:
+ -check docs:
 
  https://nextjs.org/docs/app/building-your-application/styling/css-in-js
 

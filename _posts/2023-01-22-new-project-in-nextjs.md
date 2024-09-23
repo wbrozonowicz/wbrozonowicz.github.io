@@ -42,18 +42,19 @@ Don't forget to instal in VSC helpful plugins: ESLINT  & PRETTIER
 Basic app structure:
 
 Static router by Catalogs:
+```
+      folder:src/app: mainPage -> route:"/"
+      page.tsx
+      layout.tsx
 
-  folder:src/app: mainPage -> route:"/"
-  page.tsx
-  layout.tsx
-
-  folder:src/app/subpage -> route:"/subpage"
-  page.tsx
-  --layout.tsx
+      folder:src/app/subpage -> route:"/subpage"
+      page.tsx
+      --layout.tsx
 
       folder:src/app/subpage/subpage - route:"/subpage/subpage"
       ---page.tsx
       ---layout.tsx
+```
 
 page.tsx:
 Component of single page f.e. arrow function:
