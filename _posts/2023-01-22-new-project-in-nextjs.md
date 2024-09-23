@@ -43,11 +43,11 @@ Basic app structure:
 
 Static router by Catalogs:
 
-folder:src/app: mainPage - route:"/"
-page.tsx
-layout.tsx
+  folder:src/app: mainPage -> route:"/"
+  page.tsx
+  layout.tsx
 
-  folder:src/app/subpage - route:"/subpage"
+  folder:src/app/subpage -> route:"/subpage"
   page.tsx
   --layout.tsx
 
