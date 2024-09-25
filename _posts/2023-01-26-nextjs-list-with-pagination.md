@@ -155,3 +155,5 @@ Remember about default cache and specify in featch, after comma options in form 
 { next: { revalidate: 5 } } 
 
 That's all!
+
+*INFO: This post is my notes based on Udemy course ("Nextjs 14 od podstaw") by Jarosław Juszkiewicz

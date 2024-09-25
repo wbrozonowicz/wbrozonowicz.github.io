@@ -253,3 +253,4 @@ npm run dev
 
 Shoud start on localhost:3000
 
+*INFO: This post is my notes based on Udemy course ("Nextjs 14 od podstaw") by Jarosław Juszkiewicz

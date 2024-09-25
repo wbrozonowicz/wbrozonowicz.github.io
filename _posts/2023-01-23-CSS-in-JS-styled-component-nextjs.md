@@ -61,5 +61,5 @@ Other libraries:
  https://nextjs.org/docs/app/building-your-application/styling/css-in-js
 
  
-
+*INFO: This post is my notes based on Udemy course ("Nextjs 14 od podstaw") by Jarosław Juszkiewicz
 

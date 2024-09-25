@@ -207,3 +207,5 @@ Summary:
 - Use separate files "somepage.module.scss" in each page directory, if style for one specific page is needed
 - Use global file "global.scss: in directory "styles" and wrap around {children} in top level layout.tsx, if all pages needs the same styles
 
+*INFO: This post is my notes based on Udemy course ("Nextjs 14 od podstaw") by Jarosław Juszkiewicz
+
