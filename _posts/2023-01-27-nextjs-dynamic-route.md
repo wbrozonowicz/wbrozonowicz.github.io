@@ -113,6 +113,73 @@ em {
 }
 ```
 
+Now:
+We can define path that will CATCH ALL paths nad give us them in params.
+
+How:if We make folder with brackets in name f.e. "[...path]",
+then We will catch all paths from url address and app-router will redirect to page.tsx, that is defined in this folder.
+For example:
+
+folder "app/[...path]"
+- url: "localhost:3000/something" will redirect to page in folder [...path] when there will be no other folder named "something".
+
+folder "/app/info/[...path]"
+- url: "localhost:3000/info/whatever" will redirect to page in folder /info/[...path] when there will be no other folder named "whatever".
+- url: "localhost:3000/info" will not work this way - only when there will be slash on the end (localhost:3000/info/") it will redirect to "/info/[...path]", without slash it will still redirect to "app/[...path]"
+
+folder "/app/info/[[...path]]" - app-router will redirect also with url: "localhost:3000/info" to page in folder: "/app/info/[[...path]]" (and of course all other urls will do the same f.e. "localhost:3000/info/3/4/wtf/667" etc)
+
+How to read params from such urls?
+
+Let's see example:
+1. "app/[...path].page.tsx"
+
+
+{% include code-header.html %}
+```js
+import { NextPage } from "next";
+
+type InfoPageProps = {
+  params: {
+    path: string[];
+  };
+};
+const InfoPage: NextPage<InfoPageProps> = ({ params }) => {
+  return (
+    <div>
+      <h1>Page</h1>
+      params: {params.path.join("/")}
+    </div>
+  );
+};
+
+export default InfoPage;
+```
+
+Ok, with "[[...path]]" there is small difference: We need to check if params.path exist, so file "/app/info/[[...path]]" will be as below:
+
+{% include code-header.html %}
+```js
+import { NextPage } from "next";
+
+type InfoPageProps = {
+  params: {
+    path: string[];
+  };
+};
+const InfoPage: NextPage<InfoPageProps> = ({ params }) => {
+  return (
+    <div>
+      <h1>Info / Page</h1>
+      params: {params.path && params.path.join("/")}
+    </div>
+  );
+};
+
+export default InfoPage;
+```
+
+
 That's all!
 
 *INFO: This post is my notes based on Udemy course ("Nextjs 14 od podstaw") by Jarosław Juszkiewicz
