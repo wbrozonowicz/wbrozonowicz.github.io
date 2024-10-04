@@ -1,6 +1,6 @@
 ---
 title: "Next.js - fetch client and encodeURIComponent function"
-excerpt: "Fetch data in nextjs, deal with slah in url"
+excerpt: "Fetch data in nextjs, deal with slash in url"
 last_modified_at: 2026-01-22T10:27:01-05:00
 categories:
   - Next.js
