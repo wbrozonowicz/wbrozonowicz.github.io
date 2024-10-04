@@ -47,7 +47,7 @@ export const LastNews = () => {
 // useCallback hook to optimize function usage - function definition is gnerated only if needed [if page is changed], not with every render
   const fetchNews = useCallback(async () => {
     const resp = await axios.get<Posts>("http://localhost:3004/posts", {
-      params: { _limit: POST_LIMIT, _page: page },
+      params: { _limit: POST_LIMIT, _page: page }, // in axios We can define params as object, axios will add them to url automatically
     });
     setPosts(resp.data);
   }, [page]);
