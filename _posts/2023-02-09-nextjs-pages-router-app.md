@@ -21,8 +21,8 @@ Top level folder contains:
 - Code is in folder "src"
 - Images etc are in folder public
 - node_modules
--.next
--.git
+-".next"
+-".git"
 - other files: gitignore, package.json etc
 
 
@@ -357,7 +357,7 @@ const HomePage = () => {
 export default HomePage;
 ```
 
-Now: general ruule with Page Router is:
+Now: general rule with Page Router is:
 - If we create folder "somepath" and put inside file "index.tsx" then
  it will create static route for url: localhost:3000/somepath
 
