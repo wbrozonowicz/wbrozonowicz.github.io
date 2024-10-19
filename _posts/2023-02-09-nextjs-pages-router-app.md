@@ -21,7 +21,7 @@ Top level folder contains:
 - Code is in folder "src"
 - Images etc are in folder public
 - node_modules
--".next"
+-".next" : folder for build
 -".git"
 - other files: gitignore, package.json etc
 
@@ -29,8 +29,8 @@ Top level folder contains:
 Folder src:
 - folder "pages" for each page
 - folder "styles: for css
-- folder common for widely used components
-
+- folder "common" for widely used components
+- folder "types" for types that we want use accross app
 
 Folder "common":
 - file "config.ts" with constants that are used in app f.e.:
@@ -40,23 +40,14 @@ export const POSTS_TOTAL = 30; // normally get this from API
 
 - "clientApi" contains f.e. "fetchClient.ts" -> for fetching data
 
-
 {% include code-header.html %}
 ```js
 import { notFound } from "next/navigation";
 
-type FetchClientOptions = {
-  // in options client will get revalidate param (sec set for cache)
-  revalidate?: number;
-  tags?: string[];
-};
-
+// difference with this and App router: there is no cache and options for it in Pages Router!!
 export async function fetchClient<P = unknown>( // using Generic <P=unknown> We will be able to use client with all types of data
-  url: string,
-  options: FetchClientOptions = { revalidate: 10 }
-) {
-  const { revalidate, tags } = options; // destructure - take number value from options
-  const responseData = await fetch(url, { next: { revalidate, tags } });
+  url: string) {
+  const responseData = await fetch(url);
   if (!responseData.ok && responseData.status === 404) {
     //not found error handling
     throw notFound();
@@ -301,7 +292,11 @@ h3 {
 
 And finally our "pages" folder:
 
-1. file "_app.tsx" that adds something to every page in app. We can use it to add global style and something more f.e.:
+1. files "_app.tsx" and "_document.tsx":
+
+"_app.tsx" is file that adds something to every page in app. We can use it to add global style and something more.
+In this file We have access to props of each page and to Components inside, so We can use it to dynamically interact with them.
+ Ecample of file "_app.tsx":
 
 {% include code-header.html %}
 ```js
@@ -310,6 +305,8 @@ import "../styles/global.scss";
 
 // wrap every page in app with something
 export default function MyApp({ Component, pageProps }: AppProps) {
+  
+  console.log("appp props=",pageProps)
   return (
     <div>
       This is app tsx // this will be on every page
@@ -318,7 +315,35 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 ```
+There is also file: "_document.tsx". Difference with it and "_app.tsx" is that this is static file and don't have access to any props of pages inside.
 
+Example of "_document.tsx":
+
+{% include code-header.html %}
+```js
+import { Html, Head, Main, NextScript } from "next/document";
+
+export default function Document() {
+  return (
+    <Html lang="en">
+      <Head>
+        <body>
+            This is document.tsx
+          <Main />
+          <NextScript />
+        </body>
+      </Head>
+    </Html>
+  );
+}
+```js
+
+Text: "This is document.tsx" will be shown on the top of the page (higher level than text from "_app.tsx").
+
+The _document.tsx file in Next.js is used to customize the HTML document structure
+. It allows you to modify the <html>, <head>, and <body> tags that wrap your application
+. This file is only executed on the server side, so it's ideal for adding elements that need to be present before the page loads, like meta tags, fonts, or scripts
+n this example, the Document component updates the <html> tag to include a language attribute (lang="en") and ensures the <head>, <main>, and <next-script> tags are present
 
 2. file "[...slug].tsx" for dynamic routing.
 Whatever route We add after localhost:3000/ if there is no dedicated static route defined, this will be show:
@@ -388,12 +413,44 @@ So file: "src/pages/posts/index.tsx":
 
 {% include code-header.html %}
 ```js
+import { fetchClient } from "@/common/clientApi/fetchClient";
 import { MainLayout } from "@/common/components/layouts/mainLayout";
+import { Posts } from "@/types/Posts";
+import { InferGetServerSidePropsType } from "next";
+import Head from "next/head";
+import Link from "next/link";
+import { useEffect } from "react";
 
-const PostsPage = () => {
+//function runs only on server side, You can use it to get data from db etc...
+export const getServerSideProps = async () => {
+  const posts = await fetchClient<Posts>("http://localhost:3004/posts");
+  return {
+    props: {
+      posts,
+    },
+  };
+};
+
+const PostsPage = ({
+  posts
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+
+useEffect(()=>{
+  console.log("You can run use effect in components in Pages Router")
+})
+
   return (
     <MainLayout>
-      <h1> Posts page</h1>
+      <Head>
+        <title>Post Page</title>
+      </Head>
+      <h1> Posts page </h1>
+      {posts.map(post => (
+        <div key={post.id}>
+          <h2>{post.title}</h2>
+          <Link href={`/posts/${post.id}`}>Read more</Link>
+        </div>
+      ))}
     </MainLayout>
   );
 };
@@ -401,24 +458,20 @@ const PostsPage = () => {
 export default PostsPage;
 ```
 
-Next file: ""src/pages/posts/[postId]/index.tsx"
+Note: components in Pages Router are hybrid: partly server side / partly client side.
+In Next.js, there are three main server-side functions you can use in the Pages Router to fetch data and handle requests:
 
-{% include code-header.html %}
-```js
-import { MainLayout } from "@/common/components/layouts/mainLayout";
+- getStaticProps: This function is used for Static Site Generation (SSG). It fetches data at build time and pre-renders the page with this data. It's ideal for pages that don't change frequently
 
-const PostPage = () => {
-  return (
-    <MainLayout>
-      <h1> Post page</h1>
-    </MainLayout>
-  );
-};
+- getServerSideProps: This function is used for Server-Side Rendering (SSR). It fetches data on every request, making it suitable for pages with frequently updated content
 
-export default PostPage;
-```
+- getStaticPaths: This function is used alongside getStaticProps for dynamic routes. It generates paths for the dynamic routes at build time, allowing you to pre-render pages for different route parameters
 
-The last element in our simple example: in folder "src/pages/vlogs" file "[[...slug]].tsx":
+But besides this functions, component are client side, so We can Use inside hooks like "useEffect" in our example.
+!! THIS WAS NOT POSSIBLE IN APP ROUTER (there We have to define in each component is it "use server" or "use client").
+
+
+The next element in our simple example: in folder "src/pages/vlogs" file "[[...slug]].tsx":
 
 {% include code-header.html %}
 ```js
@@ -462,6 +515,178 @@ Matched Routes:
 /shop/clothes → slug: ['clothes']
 /shop/clothes/tops → slug: ['clothes', 'tops']
 This is useful for creating dynamic routes that can handle multiple levels of nested paths.
+
+
+OK, now example with other 2 server side functions:
+
+1. "getStaticProps"
+
+- Create folder "info"in src/pages
+- inside create file "index.tsx":
+
+{% include code-header.html %}
+```js
+import { fetchClient } from "@/common/clientApi/fetchClient";
+import { MainLayout } from "@/common/components/layouts/mainLayout";
+import { Contents } from "@/types/Contents";
+import { InferGetStaticPropsType, NextPage } from "next";
+import Link from "next/link";
+
+// this functions runs only once on server side, during build
+// use this when data are changed very rarely
+// optionally we can define revalidate to refresh cache and regenerate
+export const getStaticProps = async () => {
+  const pages = await fetchClient<Contents>("http://localhost:3004/contents");
+  return {
+    props: {
+      pages,
+      randomNumber: Math.random().toString(), // this will be calculated only once during build
+    },
+    revalidate: 15 //15 sec refresh cache
+  };
+};
+
+const InfoPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
+  pages,
+  randomNumber,
+}) => {
+  return (
+    <MainLayout>
+      <h1>Info pages</h1>
+      <h2>randomNumber: {randomNumber}</h2>
+      <div>
+        {pages.map(page=>(
+            <div key={page.id}>
+                {page.title}
+                <Link href={`/info/${page.id}`}>{page.title}</Link>
+            </div>
+        ))}
+      </div>
+    </MainLayout>
+  );
+};
+
+export default InfoPage;
+
+```
+
+
+2. "getStaticPaths"
+If We use dynamic routing, generated by data from API, then when new data are fetched, new paths will be not available.
+They need to be generate.
+We can use third function called "getStaticPaths"
+
+- create folder [slug] inside folder "info"
+- create "index.tsx" inside [slug]
+
+{% include code-header.html %}
+```js
+import { fetchClient } from "@/common/clientApi/fetchClient";
+import { MainLayout } from "@/common/components/layouts/mainLayout";
+import { Content, Contents } from "@/types/Contents";
+import { InferGetStaticPropsType, NextPage } from "next";
+
+type StaticProps = {
+  params: {
+    slug: string;
+  };
+};
+
+// this will get all paths from API in order to generate static paths during build
+// if we use it with optional parameter 'fallback' we can regenerate new page if it will be added to api
+// f.e. in different place we revalidate contents and generate new link to page with it
+// if static paths from build don't have this new path, there will be error
+// but fallback "blocking" will generate this new path and show to user (and save to cache)
+export const getStaticPaths = async () => {
+  const pages = await fetchClient<Contents>(`http://localhost:3004/contents`);
+  const paths = pages.map((page) => {
+    return {
+      params: {
+        slug: page.id,
+      },
+    };
+  });
+  return {
+    paths,
+    fallback: 'blocking', // false= do not generate new page if not exist, true: generate but no refresh, 'blocking': generate and wait untill is ready
+  };
+};
+
+// this will return specific prop (page data with dynamic id = slug )
+export const getStaticProps = async ({ params }: StaticProps) => {
+  const page = await fetchClient<Content>(
+    `http://localhost:3004/contents/${params.slug}`
+  );
+  return {
+    props: {
+      page,
+    },
+  };
+};
+
+const InfoPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
+  page,
+}) => {
+  return (
+    <MainLayout>
+      <h1>{page.title}</h1>
+      <p>{page.body}</p>
+    </MainLayout>
+  );
+};
+
+export default InfoPage;
+```
+
+Some explanation:
+
+- getStaticPaths:
+
+Fetches all content paths from the API.
+Generates paths for each content item based on the id.
+Returns these paths with fallback: 'blocking', allowing new pages to be generated if they don't exist yet.
+
+- getStaticProps:
+Fetches specific content based on the slug parameter.
+Returns the content as props for the page.
+
+- InfoPage Component:
+Uses the fetched content to render a page with a title and body within the MainLayout.
+
+
+NOW: API in Pages Router:
+
+- create folder "api" in src/pages
+- inside create file "hello.ts"
+
+File as below:
+
+{% include code-header.html %}
+
+```js
+import { NextApiRequest, NextApiResponse } from "next";
+
+type ResponseData = {
+  message: string;
+};
+
+export default function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<ResponseData>
+) {
+  if (req.method === "POTS") {
+    res.status(200).json({ message: "Hello - it is POST method" });
+  } else if (req.method === "GET") {
+    res.status(200).json({ message: "Hello - it is GET method" });
+  }
+}
+```
+
+Now if We send GET request to "http://localhost:3000/api/hello" We will get in response json object:
+{
+    "message": "Hello - it is GET method"
+}
+
 
 ----
 
