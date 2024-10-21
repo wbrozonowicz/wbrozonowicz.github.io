@@ -64,7 +64,7 @@ const PostPage = ({post}:InferGetServerSidePropsType<typeof getServerSideProps>)
 
 export default PostPage;
 ```
-This will overwrite onlu title, description will stay default.
+This will overwrite only title, description will stay default.
 
 
 ----

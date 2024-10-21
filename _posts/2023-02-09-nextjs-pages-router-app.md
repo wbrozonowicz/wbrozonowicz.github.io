@@ -336,7 +336,7 @@ export default function Document() {
     </Html>
   );
 }
-```js
+```
 
 Text: "This is document.tsx" will be shown on the top of the page (higher level than text from "_app.tsx").
 
